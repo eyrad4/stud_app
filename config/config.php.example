@@ -1,7 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dimmask
- * Date: 27.12.17
- * Time: 19:39
- */
+
+return [
+    'db_host' => 'localhost',
+    'db_user' => 'root',
+    'db_pass' => '',
+    'routes' => include("routes.php")
+];
