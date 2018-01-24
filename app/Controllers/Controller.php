@@ -10,5 +10,10 @@ namespace App\Controllers;
  */
 class Controller
 {
+    /**
+     * Home page
+     */
+    public function home(){
 
+    }
 }
