@@ -14,6 +14,6 @@ class Controller
      * Home page
      */
     public function home(){
-
+        echo 'Hello!';
     }
 }
