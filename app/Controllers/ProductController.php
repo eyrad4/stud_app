@@ -14,20 +14,50 @@ class ProductController
      * Products index page
      */
     function index(){
-        echo 'Product list to be shown here';
+
+        // Fixture:
+        $list = [
+            [
+                'id' => 1,
+                'name' => 'Samsung Galaxy A7',
+                'description' => 'Original, Android 5.0.1',
+                'price' => '100'
+            ],
+            [
+                'id' => 2,
+                'name' => 'iFone',
+                'description' => 'Chinese copy',
+                'price' => '100'
+            ]
+        ];
+
+        return $list;
     }
 
     /**
      * Single product page
+     *
+     * @param   int Product ID
+     * @return  mixed
      */
     function show($id){
-        echo 'Product ID > ' . $id . ' card';
+
+        // Fixture:
+        $item = [
+                'id' => (int)$id,
+                'name' => 'Samsung Galaxy A7',
+                'description' => 'Original, Android 5.0.1',
+                'price' => '100'
+            ];
+
+        return $item;
     }
 
     /**
      * Create product
      */
     function create(){
-        echo 'creating the product...';
+
+        //@TODO: Implement this
     }
 }

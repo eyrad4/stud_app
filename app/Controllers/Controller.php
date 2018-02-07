@@ -14,6 +14,11 @@ class Controller
      * Home page
      */
     public function home(){
-        echo 'Hello!';
+
+        // Since it's just API, just return some data, e.g. version, stability status, etc:
+        return [
+            'status'    => 'Ok',
+            'version'   => '0.1 alpha'
+        ];
     }
 }
