@@ -2,21 +2,21 @@
 
 return [
     'home' => [
-        'handler' => 'Controller@home',
+        'handler' => 'App\Controllers\Controller@home',
         'path' => '/'
     ],
     'index' => [
-        'handler' => 'ProductController@index',
+        'handler' => 'App\Controllers\ProductController@index',
         'path' => '/products'
     ],
     'product_show' => [
-        'handler' => 'ProductController@show',
-        'path' => '/products/{id}',
+        'handler' => 'App\Controllers\ProductController@show',
+        'path' => '/product/{id}',
         'method' => 'GET'
     ],
     'product_create' => [
-        'handler' => 'ProductController@create',
-        'path' => '/products/{id}',
+        'handler' => 'App\Controllers\ProductController@create',
+        'path' => '/product',
         'method' => 'POST'
     ],
 ];
