@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\ProductModel;
+
 /**
  * Product controller
  *
@@ -15,23 +17,9 @@ class ProductController
      */
     function index(){
 
-        // Fixture:
-        $list = [
-            [
-                'id' => 1,
-                'name' => 'Samsung Galaxy A7',
-                'description' => 'Original, Android 5.0.1',
-                'price' => '100'
-            ],
-            [
-                'id' => 2,
-                'name' => 'iFone',
-                'description' => 'Chinese copy',
-                'price' => '100'
-            ]
-        ];
+        $model = new ProductModel();
 
-        return $list;
+        return $model->getList();
     }
 
     /**
