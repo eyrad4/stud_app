@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\ProductModel;
+use Mindk\Framework\Exceptions\NotFoundException;
 
 /**
  * Product controller
@@ -27,16 +28,17 @@ class ProductController
      *
      * @param   int Product ID
      * @return  mixed
+     * @throws NotFoundException
      */
     function show($id){
 
-        // Fixture:
-        $item = [
-                'id' => (int)$id,
-                'name' => 'Samsung Galaxy A7',
-                'description' => 'Original, Android 5.0.1',
-                'price' => '100'
-            ];
+        $model = new ProductModel();
+        $item = $model->getRecord((int)$id);
+
+        // Check if record exists
+        if(empty($item)) {
+            throw new NotFoundException('Product with id ' . $id . ' not found');
+        }
 
         return $item;
     }
