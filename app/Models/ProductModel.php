@@ -33,4 +33,17 @@ class ProductModel
             ->query('SELECT * FROM `products`')
             ->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    /**
+     * Get single record by id
+     *
+     * @param int $id
+     * @return  mixed
+     */
+    public function getRecord(int $id){
+
+        return $this->db
+            ->query('SELECT * FROM `products` WHERE `id`='.$id)
+            ->fetch(\PDO::FETCH_ASSOC);
+    }
 }
