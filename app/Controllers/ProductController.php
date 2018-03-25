@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\ProductModel;
+use Mindk\Framework\Http\Request\Request;
 use Mindk\Framework\Exceptions\NotFoundException;
 
 /**
@@ -16,9 +17,7 @@ class ProductController
     /**
      * Products index page
      */
-    function index(){
-
-        $model = new ProductModel();
+    function index(ProductModel $model){
 
         return $model->getList();
     }
