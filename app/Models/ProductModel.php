@@ -19,9 +19,9 @@ class ProductModel
     /**
      * ProductModel constructor.
      */
-    public function __construct()
+    public function __construct(DBOConnectorInterface $db)
     {
-        $this->db = Service::get('db');
+        $this->db = $db;
     }
 
     /**
