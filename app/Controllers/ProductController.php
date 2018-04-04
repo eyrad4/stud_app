@@ -25,14 +25,15 @@ class ProductController
     /**
      * Single product page
      *
+     * @param   ProductModel
      * @param   int Product ID
+     *
      * @return  mixed
      * @throws NotFoundException
      */
-    function show($id){
+    function show(ProductModel $model, $id){
 
-        $model = new ProductModel();
-        $item = $model->getRecord((int)$id);
+        $item = $model->load($id);
 
         // Check if record exists
         if(empty($item)) {
