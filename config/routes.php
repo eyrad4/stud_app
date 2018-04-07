@@ -17,6 +17,7 @@ return [
     'product_create' => [
         'handler' => 'App\Controllers\ProductController@create',
         'path' => '/product',
-        'method' => 'POST'
+        'method' => 'POST',
+        'acl' => ['registered']
     ],
 ];
