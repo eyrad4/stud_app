@@ -18,6 +18,6 @@ return [
         'handler' => 'App\Controllers\ProductController@create',
         'path' => '/product',
         'method' => 'POST',
-        'acl' => ['registered']
+        'acl' => ['user', 'admin']
     ],
 ];
