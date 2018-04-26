@@ -20,4 +20,9 @@ return [
         'method' => 'POST',
         'acl' => ['user', 'admin']
     ],
+    'login' => [
+        'handler' => 'Mindk\Framework\Controllers\UserController@login',
+        'path' => '/login',
+        'method' => 'POST',
+    ]
 ];

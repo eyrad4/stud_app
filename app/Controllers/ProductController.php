@@ -47,7 +47,7 @@ class ProductController
      * Create product
      */
     function create(){
-
+        return "SUCCESS";
         //@TODO: Implement this
     }
 }
