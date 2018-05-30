@@ -24,5 +24,20 @@ return [
         'handler' => 'Mindk\Framework\Controllers\UserController@login',
         'path' => '/login',
         'method' => 'POST',
+    ],
+    'user_create' => [
+        'handler' => 'Mindk\Framework\Controllers\UserController@register',
+        'path' => '/register',
+        'method' => 'POST',
+    ],
+    'logout' => [
+        'handler' => 'Mindk\Framework\Controllers\UserController@logout',
+        'path' => '/logout',
+        'method' => 'POST',
+    ],
+    'reset_password' => [
+        'handler' => 'Mindk\Framework\Controllers\UserController@resetpassword',
+        'path' => '/resetpass',
+        'method' => 'POST',
     ]
 ];
