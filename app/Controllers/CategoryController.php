@@ -16,7 +16,7 @@ use Mindk\Framework\Http\Response\JsonResponse;
 class CategoryController
 {
     /**
-     * Products index page
+     * Categories list
      */
     function categoryList(CategoryModel $model){
 
