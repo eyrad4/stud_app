@@ -16,7 +16,7 @@ return [
     ],
     'product_create' => [
         'handler' => 'App\Controllers\ProductController@create',
-        'path' => '/product',
+        'path' => '/create',
         'method' => 'POST',
         'acl' => ['user', 'admin']
     ],
@@ -24,5 +24,30 @@ return [
         'handler' => 'Mindk\Framework\Controllers\UserController@login',
         'path' => '/login',
         'method' => 'POST',
+    ],
+    'user_create' => [
+        'handler' => 'Mindk\Framework\Controllers\UserController@register',
+        'path' => '/register',
+        'method' => 'POST',
+    ],
+    'logout' => [
+        'handler' => 'Mindk\Framework\Controllers\UserController@logout',
+        'path' => '/logout',
+        'method' => 'POST',
+    ],
+    'reset_password' => [
+        'handler' => 'Mindk\Framework\Controllers\UserController@resetpassword',
+        'path' => '/resetpass',
+        'method' => 'POST',
+    ],
+    'user_info' => [
+        'handler' => 'Mindk\Framework\Controllers\UserController@userinfo',
+        'path' => '/userinfo',
+        'method' => 'POST',
+    ],
+    'categories_list' => [
+        'handler' => 'App\Controllers\CategoryController@categoryList',
+        'path' => '/allcategories',
+        'method' => 'GET',
     ]
 ];
