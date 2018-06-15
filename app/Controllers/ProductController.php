@@ -19,9 +19,40 @@ class ProductController
     /**
      * Products index page
      */
-    function index(ProductModel $model){
+    function index(ProductModel $model, Request $request){
 
-        return $model->getList();
+        return $model->select('*', '`typead_id` = 2', 'price DESC, date DESC', 16);
+
+        //return $model->getList();
+    }
+
+    /**
+     * Products index page
+     */
+    function products(ProductModel $model, Request $request){
+
+        $where = [];
+        if(!empty($request->get('category', '', 'integer'))) {
+            $where[] = '`category_id` = '.$request->get('category', '', 'integer');
+        }
+        if(!empty($request->get('f_cities', '', 'array'))) {
+            $where[] = '`city_id` IN ('.implode(',', $request->get('f_cities', '', 'array')).')';
+        }
+        if(!empty($request->get('f_vip', '', 'string'))) {
+            $where[] = '`typead_id` = 2';
+        }
+        if(!empty($request->get('f_my', '', 'integer'))) {
+            $where[] = '`user_id` = '.$request->get('f_my', '', 'integer');
+        }
+        if(!empty($request->get('limit', '', 'integer'))) $limit = $request->get('limit', '', 'integer');
+        if(!empty($request->get('sort', '', 'string'))) $sort = $request->get('sort', '', 'string');
+
+        if(!empty($where)){
+            $where = implode(' AND ', $where);
+        }else{
+            $where = '';
+        }
+        return $model->select('*', $where, $sort, $limit);
     }
 
     /**
@@ -53,27 +84,43 @@ class ProductController
         if($token = $request->getHeader('X-Auth')){
             if($user = $userModel->findByToken($token)){
 
-                if($photoUpload = $this->upload($_FILES['photo'], '/uploads/ads/user_'.$user->id.'/')){
-                  $photo = $photoUpload;
-                }
-
-                if(empty($photo)){
-                    return new JsonResponse('Upload error', 401);
-                }
-
                 $params = [
                     'name' => $request->get('name', '', 'string'),
                     'text' => $request->get('text', '', 'string'),
                     'date' => date('Y-m-d'),
                     'price' => $request->get('price', '', 'string'),
                     'user_id' => $user->id,
-                    'category' => $request->get('category', '', 'string'),
-                    'photo' => $photo
+                    'category_id' => $request->get('category_id', '', 'string'),
+                    'city_id' => $request->get('city_id', '', 'string'),
+                    'typead_id' => $request->get('typead_id', '', 'string'),
+                    'publiched' => 1,
+                    'status' => 1
                 ];
 
-                if($model->save($params)){
-                    return new JsonResponse('true', 200);
+                if(!empty($_FILES['photo'])){
+                    if($photoUpload = $this->upload($_FILES['photo'], '/uploads/ads/user_'.$user->id.'/')){
+                        $photo = $photoUpload;
+                    }
+                    if(empty($photo)){
+                        return new JsonResponse('Upload error', 401);
+                    }
+                    $params['photo'] = $photo;
                 }
+
+                if(!empty($request->get('id', '', 'integer'))){
+                    $where = ($request->get('id', '', 'integer')) ? '`id` = '.$request->get('id', '', 'integer') : '';
+
+                    if($model->save($params, $where)){
+                        return $this->show($model, $request->get('id', '', 'integer'));
+                    }
+                }else{
+                    if($model->save($params)){
+                        return new JsonResponse('ok', 200);
+                    }
+
+
+                }
+
             }
         }
 
@@ -82,6 +129,9 @@ class ProductController
         }
     }
 
+    /**
+     * Upload image
+     */
     public function upload ($file, $folder) {
 
         $fileType = $file['type'];
@@ -100,10 +150,21 @@ class ProductController
             mkdir($uploadDirRoot, 0777);
         }
 
-        if (!move_uploaded_file($file['tmp_name'], $uploadfile)) {
+        if (move_uploaded_file($file['tmp_name'], $uploadfile)) {
             return $folder.$file['name'];
         }else{
             return new JsonResponse('Same error when file upload', 401);
+        }
+
+    }
+
+    public function searchResults (ProductModel $model, $search){
+
+        $search = filter_var($search, FILTER_SANITIZE_STRING);
+
+        if(!empty($search)) {
+            $search = 'MATCH (name,text) AGAINST ("'.$search.'")';
+            return $model->select('*', $search, 'date DESC', 20);
         }
 
     }

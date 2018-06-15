@@ -7,6 +7,10 @@ return [
     ],
     'index' => [
         'handler' => 'App\Controllers\ProductController@index',
+        'path' => '/index'
+    ],
+    'products_show' => [
+        'handler' => 'App\Controllers\ProductController@products',
         'path' => '/products'
     ],
     'product_show' => [
@@ -49,5 +53,15 @@ return [
         'handler' => 'App\Controllers\CategoryController@categoryList',
         'path' => '/allcategories',
         'method' => 'GET',
+    ],
+    'data_list' => [
+        'handler' => 'App\Controllers\DataController@dataList',
+        'path' => '/alldata',
+        'method' => 'GET',
+    ],
+    'products_search' => [
+        'handler' => 'App\Controllers\ProductController@searchResults',
+        'path' => '/search/{search}',
+        'method' => 'GET'
     ]
 ];
